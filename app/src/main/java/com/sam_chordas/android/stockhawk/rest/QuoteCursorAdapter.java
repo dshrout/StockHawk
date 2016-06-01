@@ -37,8 +37,7 @@ public class QuoteCursorAdapter extends CursorRecyclerViewAdapter<QuoteCursorAda
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         robotoLight = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Light.ttf");
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_quote, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_quote, parent, false);
         ViewHolder vh = new ViewHolder(itemView);
         return vh;
     }
