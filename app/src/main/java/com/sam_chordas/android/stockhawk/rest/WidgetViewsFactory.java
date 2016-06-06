@@ -85,7 +85,7 @@ public class WidgetViewsFactory implements RemoteViewsFactory {
 
     @Override
     public int getCount() {
-        return 0;
+        return mWidgetItems.size();
     }
 
     @Override
@@ -95,16 +95,16 @@ public class WidgetViewsFactory implements RemoteViewsFactory {
 
     @Override
     public int getViewTypeCount() {
-        return 0;
+        return 1;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 }
