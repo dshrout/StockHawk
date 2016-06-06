@@ -31,6 +31,10 @@ public class Utils {
                 int count = Integer.parseInt(jsonObject.getString("count"));
                 if (count == 1){
                     jsonObject = jsonObject.getJSONObject("results").getJSONObject("quote");
+                    if(jsonObject.getString("Bid").equals("null")) {
+                        // TODO: Use SharedPreferences here to notify UI that the stock symbol lookup failed
+                        return new ArrayList<>();
+                    }
                     batchOperations.add(buildBatchOperation(jsonObject));
                 } else{
                     resultsArray = jsonObject.getJSONObject("results").getJSONArray("quote");

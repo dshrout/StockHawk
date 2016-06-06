@@ -1,5 +1,6 @@
 package com.sam_chordas.android.stockhawk.service;
 
+import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
@@ -19,6 +20,7 @@ import com.squareup.okhttp.Response;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by sam_chordas on 9/30/15.
@@ -57,8 +59,7 @@ public class StockTaskService extends GcmTaskService{
         try{
             // Base URL for the Yahoo query
             urlStringBuilder.append("https://query.yahooapis.com/v1/public/yql?q=");
-            urlStringBuilder.append(URLEncoder.encode("select * from yahoo.finance.quotes where symbol "
-                    + "in (", "UTF-8"));
+            urlStringBuilder.append(URLEncoder.encode("select * from yahoo.finance.quotes where symbol in (", "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -79,8 +80,7 @@ public class StockTaskService extends GcmTaskService{
                 DatabaseUtils.dumpCursor(initQueryCursor);
                 initQueryCursor.moveToFirst();
                 for (int i = 0; i < initQueryCursor.getCount(); i++){
-                    mStoredSymbols.append("\""+
-                            initQueryCursor.getString(initQueryCursor.getColumnIndex("symbol"))+"\",");
+                    mStoredSymbols.append("\"" + initQueryCursor.getString(initQueryCursor.getColumnIndex("symbol")) + "\",");
                     initQueryCursor.moveToNext();
                 }
                 mStoredSymbols.replace(mStoredSymbols.length() - 1, mStoredSymbols.length(), ")");
@@ -101,8 +101,7 @@ public class StockTaskService extends GcmTaskService{
             }
         }
         // finalize the URL for the API query.
-        urlStringBuilder.append("&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables."
-                + "org%2Falltableswithkeys&callback=");
+        urlStringBuilder.append("&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=");
 
         String urlString;
         String getResponse;
@@ -121,8 +120,11 @@ public class StockTaskService extends GcmTaskService{
                         mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues,
                                 null, null);
                     }
-                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY,
-                            Utils.quoteJsonToContentVals(getResponse));
+                    ArrayList<ContentProviderOperation> stockSymbols = Utils.quoteJsonToContentVals(getResponse);
+                    if (stockSymbols.size() == 0) {
+                        result = GcmNetworkManager.RESULT_FAILURE;
+                    }
+                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY, stockSymbols);
                 }catch (RemoteException | OperationApplicationException e){
                     Log.e(LOG_TAG, "Error applying batch insert", e);
                 }

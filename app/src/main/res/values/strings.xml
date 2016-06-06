@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">Stock Hawk</string>
+  <string name="app_name" translatable="false">Stock Hawk</string>
 
   <string name="action_example">Example action</string>
 
@@ -7,8 +7,10 @@
   <string name="action_change_units">Change Units</string>
   <string name="symbol_search">Symbol Search</string>
   <string name="content_test">Search for a Stock Symbol</string>
-  <string name="input_hint">FB</string>
+  <string name="input_hint" translatable="false">FB</string>
   <string name="input_prefill"></string>
   <string name="network_toast">Uh-oh! This app requires an internet connection</string>
-  <string name="no_network">No Data Available\nCheck network connection</string>
+  <string name="no_network">No Data Available\nCheck Network Connection</string>
+  <string name="title_widget_quotes">Stock Hawk</string>
+  <string name="widget_empty_string">No Data</string>
 </resources>

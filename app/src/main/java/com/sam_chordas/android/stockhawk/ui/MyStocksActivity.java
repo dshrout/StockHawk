@@ -1,6 +1,7 @@
 package com.sam_chordas.android.stockhawk.ui;
 
 import android.app.LoaderManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -117,7 +118,10 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                         // Add the stock to DB
                                         mServiceIntent.putExtra("tag", "add");
                                         mServiceIntent.putExtra("symbol", input.toString());
-                                        startService(mServiceIntent);
+                                        ComponentName cn = startService(mServiceIntent);
+                                        if (cn != null) {
+                                            int i = 0;
+                                        }
                                     }
                                 }
                             })

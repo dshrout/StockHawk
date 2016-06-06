@@ -6,9 +6,13 @@
       android:title="@string/action_change_units"
       android:icon="@drawable/ic_attach_money_white_24dp"
       android:orderInCategory="99"
-      app:showAsAction="always"/>
+      app:showAsAction="always"
+      android:contentDescription="Change Display Units"
+      android:textDirection="locale" />
   <item android:id="@+id/action_settings"
       android:title="@string/action_settings"
       android:orderInCategory="100"
-      app:showAsAction="never" />
+      app:showAsAction="never"
+      android:contentDescription="Setting"
+      android:textDirection="locale" />
 </menu>
