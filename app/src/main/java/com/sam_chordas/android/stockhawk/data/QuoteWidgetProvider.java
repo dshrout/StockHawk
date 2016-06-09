@@ -20,7 +20,12 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int widgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_quotes);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
+
+            // Create an Intent to launch MyStocksActivity
+            Intent launchIntent = new Intent(context, MyStocksActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
+            views.setOnClickPendingIntent(R.id.widget_window, pendingIntent);
 
             // create the service intent
             Intent intent = new Intent(context, StockWidgetService.class);
@@ -28,13 +33,8 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
             // set up the collection
-            views.setRemoteAdapter(R.id.widget_listview, intent);
             views.setEmptyView(R.id.widget_listview, R.id.empty_view);
-
-            // Create an Intent to launch MyStocksActivity
-            Intent launchIntent = new Intent(context, MyStocksActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
-            views.setOnClickPendingIntent(R.id.widget_window, pendingIntent);
+            views.setRemoteAdapter(R.id.widget_listview, intent);
 
             appWidgetManager.updateAppWidget(widgetId, views);
         }
