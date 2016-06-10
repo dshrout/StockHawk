@@ -89,6 +89,7 @@ public class WidgetViewsFactory implements RemoteViewsFactory, LoaderManager.Loa
         views.setTextViewText(R.id.widget_change, Utils.showPercent ? widgetItem.percentChange : widgetItem.change);
         views.setInt(R.id.widget_change, "setBackgroundResource", color);
 
+
         return views;
     }
 

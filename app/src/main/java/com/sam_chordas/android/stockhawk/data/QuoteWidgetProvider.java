@@ -25,7 +25,7 @@ public class QuoteWidgetProvider extends AppWidgetProvider {
             // Create an Intent to launch MyStocksActivity
             Intent launchIntent = new Intent(context, MyStocksActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
-            views.setOnClickPendingIntent(R.id.widget_window, pendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_titlebar, pendingIntent);
 
             // create the service intent
             Intent intent = new Intent(context, StockWidgetService.class);
