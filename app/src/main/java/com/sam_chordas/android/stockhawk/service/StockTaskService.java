@@ -1,5 +1,6 @@
 package com.sam_chordas.android.stockhawk.service;
 
+import android.appwidget.AppWidgetManager;
 import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;

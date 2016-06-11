@@ -1,4 +1,4 @@
-package com.sam_chordas.android.stockhawk.rest;
+package com.sam_chordas.android.stockhawk.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.rest.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by DShrout on 6/5/2016
  */
-public class WidgetViewsFactory implements RemoteViewsFactory, LoaderManager.LoaderCallbacks<Cursor> {
+public class WidgetViewsFactory implements RemoteViewsFactory {
     private static final int mCount = 10;
     private List<WidgetItem> mWidgetItems = new ArrayList<>();
     private Context mContext;
@@ -57,21 +58,6 @@ public class WidgetViewsFactory implements RemoteViewsFactory, LoaderManager.Loa
     public WidgetViewsFactory(Context context, Intent intent) {
         mContext = context;
         mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 
     @Override

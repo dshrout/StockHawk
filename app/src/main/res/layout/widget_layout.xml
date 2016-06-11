@@ -18,16 +18,38 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginBottom="20dp"
-            android:background="#804285f4" >
+            android:background="@color/material_blue_500_alpha_50" >
             <TextView
                 android:id="@+id/widget_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="start|left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
                 android:text="@string/app_name"
                 android:textColor="#ffffff"
                 android:textSize="32sp"
                 android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/widget_format"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:drawableRight="@drawable/ic_attach_money_white_36dp"
+                android:textColor="#ffffff"
+                android:textSize="32sp"
+                android:padding="10dp"
+                android:paddingRight="52dp" />
+
+            <TextView
+                android:id="@+id/widget_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:drawableRight="@drawable/ic_autorenew_white_36dp"
+                android:textColor="#ffffff"
+                android:textSize="32sp"
+                android:padding="10dp" />
+
         </LinearLayout>
 
         <!-- ListView to be shown on widget -->

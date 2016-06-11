@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="locale" >
 
-    <com.sam_chordas.android.stockhawk.widgets.EmptyRecyclerView
+    <com.sam_chordas.android.stockhawk.rest.EmptyRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
