@@ -33,6 +33,8 @@ public class Utils {
                     jsonObject = jsonObject.getJSONObject("results").getJSONObject("quote");
                     if(jsonObject.getString("Bid").equals("null")) {
                         // TODO: Use SharedPreferences here to notify UI that the stock symbol lookup failed
+//                        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+//                        sharedPrefs.edit().putString(getString(R.string.pref_sortby_key), getString(R.string.key_sortby_popular)).apply();
                         return new ArrayList<>();
                     }
                     batchOperations.add(buildBatchOperation(jsonObject));

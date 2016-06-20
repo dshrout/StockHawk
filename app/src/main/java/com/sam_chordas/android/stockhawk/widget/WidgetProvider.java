@@ -3,6 +3,7 @@ package com.sam_chordas.android.stockhawk.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +11,8 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.sam_chordas.android.stockhawk.R;
+import com.sam_chordas.android.stockhawk.data.QuoteProvider;
+import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
 
 /**
@@ -52,23 +55,22 @@ public class WidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         if (REFRESH_DATA.equals(intent.getAction())) {
-            Toast.makeText(context, "Ahhh, refreshing!", Toast.LENGTH_SHORT).show();
-
-//            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-//
-//            RemoteViews remoteViews;
-//            ComponentName watchWidget;
-//
-//            remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-//            watchWidget = new ComponentName(context, WidgetProvider.class);
-//
-//            remoteViews.setTextViewText(R.id.widget_refresh, "TESTING");
-//            appWidgetManager.updateAppWidget(watchWidget, remoteViews);
+            updateWidget(context);
+            Toast.makeText(context, "Refresh Complete!", Toast.LENGTH_SHORT).show();
         }
 
         if (FORMAT_DATA.equals(intent.getAction())) {
-            Toast.makeText(context, "Money, money, money!", Toast.LENGTH_SHORT).show();
+            Utils.showPercent = !Utils.showPercent;
+            context.getContentResolver().notifyChange(QuoteProvider.Quotes.CONTENT_URI, null);
+            updateWidget(context);
         }
+    }
+
+    protected void updateWidget(Context context) {
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        ComponentName component = new ComponentName(context, WidgetProvider.class);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(component);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_listview);
     }
 
     protected PendingIntent getPendingSelfIntent(Context context, String action) {
