@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.view.Gravity;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -56,7 +57,9 @@ public class WidgetProvider extends AppWidgetProvider {
 
         if (REFRESH_DATA.equals(intent.getAction())) {
             updateWidget(context);
-            Toast.makeText(context, "Refresh Complete!", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(context, "Refresh Complete!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
+            toast.show();
         }
 
         if (FORMAT_DATA.equals(intent.getAction())) {

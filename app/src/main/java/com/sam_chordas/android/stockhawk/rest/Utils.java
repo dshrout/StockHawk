@@ -1,8 +1,11 @@
 package com.sam_chordas.android.stockhawk.rest;
 
 import android.content.ContentProviderOperation;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteColumns;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 public class Utils {
     private static String LOG_TAG = Utils.class.getSimpleName();
 
+    public static final String STOCK_HAWK_PREFS = "StockHawkPrefs";
     public static boolean showPercent = true;
 
     public static ArrayList quoteJsonToContentVals(String JSON){
@@ -32,9 +36,6 @@ public class Utils {
                 if (count == 1){
                     jsonObject = jsonObject.getJSONObject("results").getJSONObject("quote");
                     if(jsonObject.getString("Bid").equals("null")) {
-                        // TODO: Use SharedPreferences here to notify UI that the stock symbol lookup failed
-//                        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-//                        sharedPrefs.edit().putString(getString(R.string.pref_sortby_key), getString(R.string.key_sortby_popular)).apply();
                         return new ArrayList<>();
                     }
                     batchOperations.add(buildBatchOperation(jsonObject));
@@ -97,4 +98,46 @@ public class Utils {
         }
         return builder.build();
     }
+
+    // Use SharedPreferences to store the StockTask results and make them accessible everywhere
+    public static void saveStockTaskResult(Context context, String symbol, boolean result) {
+        if (context != null) {
+            SharedPreferences settings = context.getSharedPreferences(STOCK_HAWK_PREFS, 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(context.getString(R.string.pref_stock_task_symbol), symbol);
+            editor.putBoolean(context.getString(R.string.pref_stock_task_result) , result);
+            editor.apply();
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
