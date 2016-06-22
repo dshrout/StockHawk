@@ -57,7 +57,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
         if (REFRESH_DATA.equals(intent.getAction())) {
             updateWidget(context);
-            Toast toast = Toast.makeText(context, "Refresh Complete!", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(context, R.string.refresh_message, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
             toast.show();
         }

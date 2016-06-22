@@ -112,32 +112,30 @@ public class StockTaskService extends GcmTaskService{
         String getResponse;
         int result = GcmNetworkManager.RESULT_FAILURE;
 
-        if (urlStringBuilder != null){
-            urlString = urlStringBuilder.toString();
-            try{
-                getResponse = fetchData(urlString);
-                result = GcmNetworkManager.RESULT_SUCCESS;
-                try {
-                    ContentValues contentValues = new ContentValues();
-                    // update ISCURRENT to 0 (false) so new data is current
-                    if (isUpdate){
-                        contentValues.put(QuoteColumns.ISCURRENT, 0);
-                        mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues, null, null);
-                    }
-                    ArrayList<ContentProviderOperation> stockSymbols = Utils.quoteJsonToContentVals(getResponse);
-                    if (stockSymbols.size() == 0) {
-                        result = GcmNetworkManager.RESULT_FAILURE;
-                        Utils.saveStockTaskResult(mContext, stockSymbol, false);
-                    } else {
-                        Utils.saveStockTaskResult(mContext, stockSymbol, true);
-                    }
-                    mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY, stockSymbols);
-                }catch (RemoteException | OperationApplicationException e){
-                    Log.e(LOG_TAG, "Error applying batch insert", e);
+        urlString = urlStringBuilder.toString();
+        try{
+            getResponse = fetchData(urlString);
+            result = GcmNetworkManager.RESULT_SUCCESS;
+            try {
+                ContentValues contentValues = new ContentValues();
+                // update ISCURRENT to 0 (false) so new data is current
+                if (isUpdate){
+                    contentValues.put(QuoteColumns.ISCURRENT, 0);
+                    mContext.getContentResolver().update(QuoteProvider.Quotes.CONTENT_URI, contentValues, null, null);
                 }
-            } catch (IOException e){
-                e.printStackTrace();
+                ArrayList<ContentProviderOperation> stockSymbols = Utils.quoteJsonToContentVals(getResponse);
+                if (stockSymbols.size() == 0) {
+                    result = GcmNetworkManager.RESULT_FAILURE;
+                    Utils.saveStockTaskResult(mContext, stockSymbol, false);
+                } else {
+                    Utils.saveStockTaskResult(mContext, stockSymbol, true);
+                }
+                mContext.getContentResolver().applyBatch(QuoteProvider.AUTHORITY, stockSymbols);
+            }catch (RemoteException | OperationApplicationException e){
+                Log.e(LOG_TAG, "Error applying batch insert", e);
             }
+        } catch (IOException e){
+            e.printStackTrace();
         }
 
         return result;

@@ -43,7 +43,7 @@
         <!-- Quotes Widget -->
         <receiver
             android:name=".widget.WidgetProvider"
-            android:label="@string/title_widget_quotes" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

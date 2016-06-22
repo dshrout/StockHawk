@@ -20,6 +20,7 @@
             android:background="@color/material_blue_500_alpha_50" >
             <TextView
                 android:id="@+id/widget_title"
+                android:contentDescription="@string/open_application_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -30,6 +31,7 @@
 
             <TextView
                 android:id="@+id/widget_refresh"
+                android:contentDescription="@string/refresh_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -43,6 +45,7 @@
 
             <TextView
                 android:id="@+id/widget_format"
+                android:contentDescription="@string/toggle_percent_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/widget_refresh"

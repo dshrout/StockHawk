@@ -210,10 +210,9 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        boolean result = getSharedPreferences(Utils.STOCK_HAWK_PREFS, 0).getBoolean(getString(R.string.pref_stock_task_result), false);
-        if (!result && key.equals(getString(R.string.pref_stock_task_result))) {
-            String symbol = getSharedPreferences(Utils.STOCK_HAWK_PREFS, 0).getString(getString(R.string.pref_stock_task_symbol), "");
-            promptForSymbol("Could not add symbol '" + symbol + "'\nPlease try a different symbol\n\n");
+        String symbol = getSharedPreferences(Utils.STOCK_HAWK_PREFS, 0).getString(getString(R.string.pref_invalid_stock_symbol), "");
+        if (!symbol.isEmpty()) {
+            promptForSymbol(getString(R.string.no_add_symbol) + symbol + "\n" + getString(R.string.try_again) + "\n\n");
         }
     }
 
@@ -230,7 +229,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                                 new String[] { QuoteColumns.SYMBOL }, QuoteColumns.SYMBOL + "= ?",
                                 new String[] { input.toString() }, null);
                         if (c.getCount() != 0) {
-                            Toast toast = Toast.makeText(MyStocksActivity.this, "This stock is already saved!", Toast.LENGTH_LONG);
+                            Toast toast = Toast.makeText(MyStocksActivity.this, R.string.duplicate_stock, Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, Gravity.CENTER, 0);
                             toast.show();
                             return;

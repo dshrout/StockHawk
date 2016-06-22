@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  * Created by sam_chordas on 10/8/15.
- */
+ **/
 public class Utils {
     private static String LOG_TAG = Utils.class.getSimpleName();
 
@@ -26,11 +26,11 @@ public class Utils {
 
     public static ArrayList quoteJsonToContentVals(String JSON){
         ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
-        JSONObject jsonObject = null;
-        JSONArray resultsArray = null;
+        JSONObject jsonObject;
+        JSONArray resultsArray;
         try{
             jsonObject = new JSONObject(JSON);
-            if (jsonObject != null && jsonObject.length() != 0){
+            if (jsonObject.length() != 0){
                 jsonObject = jsonObject.getJSONObject("query");
                 int count = Integer.parseInt(jsonObject.getString("count"));
                 if (count == 1){
@@ -71,7 +71,7 @@ public class Utils {
         change = change.substring(1, change.length());
         double round = (double) Math.round(Double.parseDouble(change) * 100) / 100;
         change = String.format("%.2f", round);
-        StringBuffer changeBuffer = new StringBuffer(change);
+        StringBuilder changeBuffer = new StringBuilder(change);
         changeBuffer.insert(0, weight);
         changeBuffer.append(ampersand);
         change = changeBuffer.toString();
@@ -104,8 +104,12 @@ public class Utils {
         if (context != null) {
             SharedPreferences settings = context.getSharedPreferences(STOCK_HAWK_PREFS, 0);
             SharedPreferences.Editor editor = settings.edit();
-            editor.putString(context.getString(R.string.pref_stock_task_symbol), symbol);
-            editor.putBoolean(context.getString(R.string.pref_stock_task_result) , result);
+            if (result == true) {
+                editor.putString(context.getString(R.string.pref_invalid_stock_symbol), "");
+            } else {
+                editor.clear().apply();
+                editor.putString(context.getString(R.string.pref_invalid_stock_symbol), " '" + symbol + "'");
+            }
             editor.apply();
         }
     }
