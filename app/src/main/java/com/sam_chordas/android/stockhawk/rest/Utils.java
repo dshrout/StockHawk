@@ -105,12 +105,15 @@ public class Utils {
             SharedPreferences settings = context.getSharedPreferences(STOCK_HAWK_PREFS, 0);
             SharedPreferences.Editor editor = settings.edit();
             if (result == true) {
-                editor.putString(context.getString(R.string.pref_invalid_stock_symbol), "");
+                editor.putString(context.getString(R.string.pref_invalid_stock_symbol), "").apply();
             } else {
+                // if the user enters the same invalid symbol multiple times in a row,
+                // the notification won't fire unless we first clear the preferences
                 editor.clear().apply();
-                editor.putString(context.getString(R.string.pref_invalid_stock_symbol), " '" + symbol + "'");
+                // adding single quotes around the symbol ensures the shared pref will not be empty even if the user attempted to add an empty string
+                // this is important because our main activity interprets an empty string as a successful add
+                editor.putString(context.getString(R.string.pref_invalid_stock_symbol), " '" + symbol + "'").apply();
             }
-            editor.apply();
         }
     }
 }
