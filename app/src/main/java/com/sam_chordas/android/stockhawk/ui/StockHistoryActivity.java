@@ -8,19 +8,21 @@ import com.sam_chordas.android.stockhawk.R;
  * Created by DShrout on 6/24/2016.
  **/
 public class StockHistoryActivity extends AppCompatActivity {
+    private static final String FRAGMENT_TAG = "StockHistoryFragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_graph);
+        StockHistoryFragment fragment;
+
         if(savedInstanceState == null) {
             Bundle args = new Bundle();
-            args.putString("symbol", getIntent().getDataString());
+            args.putString("symbol", getIntent().getStringExtra("symbol"));
 
-            StockHistoryFragment fragment = new StockHistoryFragment();
+            fragment = new StockHistoryFragment();
             fragment.setArguments(args);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_history_container, fragment)
-                    .commit();
+            getSupportFragmentManager().beginTransaction() .add(R.id.fragment_history_container, fragment, FRAGMENT_TAG).commit();
         }
     }
 }

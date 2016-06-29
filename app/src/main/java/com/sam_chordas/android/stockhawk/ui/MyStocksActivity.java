@@ -54,6 +54,21 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private Context mContext;
     private Cursor mCursor;
 
+    public static final String[] QUOTE_COLUMNS = {
+            QuoteColumns._ID,
+            QuoteColumns.SYMBOL,
+            QuoteColumns.BIDPRICE,
+            QuoteColumns.PERCENT_CHANGE,
+            QuoteColumns.CHANGE,
+            QuoteColumns.ISUP
+    };
+
+    public static int COL_SYMBOL = 1;
+    public static int COL_BID_PRICE = 2;
+    public static int COL_PERCENT_CHANGE = 3;
+    public static int COL_CHANGE = 4;
+    public static int COL_IS_UP = 5;
+
     private boolean isConnected () {
         ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -86,8 +101,6 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
         recyclerView.addOnItemTouchListener(new RecyclerViewItemClickListener(this,
                 new RecyclerViewItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View v, int position) {
-                        //TODO: do something on item click
-                        //Toast.makeText(MyStocksActivity.this, R.string.app_name, Toast.LENGTH_SHORT).show();
                         if (mCursor.moveToPosition(position)) {
                             Intent intent = new Intent(mContext, StockHistoryActivity.class);
                             intent.putExtra("symbol", mCursor.getString(mCursor.getColumnIndex("symbol")));
