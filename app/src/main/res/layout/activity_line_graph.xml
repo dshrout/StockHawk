@@ -84,7 +84,6 @@
                         android:layout_weight="1"
                         android:textSize="18sp"
                         android:gravity="center_vertical"
-                        android:text="Yahoo! Inc."
                         android:textDirection="locale"/>
                     <TextView
                         android:id="@+id/stock_symbol"
@@ -93,7 +92,6 @@
                         android:layout_weight="1"
                         android:textSize="18sp"
                         android:gravity="center_vertical"
-                        android:text="YHOO"
                         android:textDirection="locale"/>
                     <TextView
                         android:id="@+id/currency"
@@ -102,7 +100,6 @@
                         android:layout_weight="1"
                         android:textSize="18sp"
                         android:gravity="center_vertical"
-                        android:text="USD"
                         android:textDirection="locale"/>
                     <TextView
                         android:id="@+id/previous_close"
@@ -111,7 +108,6 @@
                         android:layout_weight="1"
                         android:textSize="18sp"
                         android:gravity="center_vertical"
-                        android:text="45.58"
                         android:textDirection="locale"/>
                 </LinearLayout>
             </LinearLayout>
