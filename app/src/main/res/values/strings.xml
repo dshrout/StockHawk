@@ -17,9 +17,15 @@
     <string name="no_add_symbol">Could not find symbol</string>
     <string name="try_again">Please try again</string>
     <string name="duplicate_stock">This stock is already saved!</string>
-    <string name="refresh_description">Click to refresh the widget data</string>
-    <string name="toggle_percent_description">Click to toggle percent values</string>
-    <string name="open_application_description">Click to open application</string>
-    <string name="fab_description">Click to add a new Stock Symbol.</string>
-    <string name="history_chart_description">History chart showing stock prices for the past 12 months</string>
+
+    <string name="description_refresh">Click to refresh the widget data</string>
+    <string name="description_toggle_percent">Click to toggle percent values</string>
+    <string name="description_open_application">Click to open application</string>
+    <string name="description_fab">Click to add a new Stock Symbol.</string>
+    <string name="description_history_chart">History chart showing stock prices for the past 30 days</string>
+
+    <string name="label_stock_name">Stock Name</string>
+    <string name="label_stock_symbol">Stock Symbol</string>
+    <string name="label_currency">Currency</string>
+    <string name="label_previous_close">Last Close</string>
 </resources>

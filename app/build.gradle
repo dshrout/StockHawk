@@ -25,6 +25,8 @@ repositories {
 }
 
 dependencies {
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:cardview-v7:23.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     apt 'net.simonvt.schematic:schematic-compiler:0.6.3'
