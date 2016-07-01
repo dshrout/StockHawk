@@ -15,11 +15,14 @@ import com.sam_chordas.android.stockhawk.R;
 import com.sam_chordas.android.stockhawk.data.QuoteProvider;
 import com.sam_chordas.android.stockhawk.rest.Utils;
 import com.sam_chordas.android.stockhawk.ui.MyStocksActivity;
+import com.sam_chordas.android.stockhawk.ui.StockHistoryActivity;
 
 /**
  * Created by DShrout on 6/4/2016
  */
 public class WidgetProvider extends AppWidgetProvider {
+    public static final String HISTORY_ACTION = "widgetHistoryAction";
+
     private static final String FORMAT_DATA = "widgetFormatData";
     private static final String REFRESH_DATA = "widgetRefreshData";
 
@@ -28,10 +31,17 @@ public class WidgetProvider extends AppWidgetProvider {
         for (int widgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
-            // Create an Intent to launch MyStocksActivity
+            // create Intent to launch MyStocksActivity
             Intent launchIntent = new Intent(context, MyStocksActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
             remoteViews.setOnClickPendingIntent(R.id.widget_title, pendingIntent);
+
+            // create Intent to launch StockHistoryActivity
+            Intent historyIntent = new Intent(context, StockHistoryActivity.class);
+            historyIntent.setAction(HISTORY_ACTION);
+            historyIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+            PendingIntent historyPendingIntent = PendingIntent.getActivity(context, 0, historyIntent, 0);
+            remoteViews.setPendingIntentTemplate(R.id.widget_listview, historyPendingIntent);
 
             // create the service intent
             Intent intent = new Intent(context, WidgetService.class);

@@ -54,6 +54,8 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
     private Context mContext;
     private Cursor mCursor;
 
+    private static final String STOCK_SYMBOL = "symbol";
+
     public static final String[] QUOTE_COLUMNS = {
             QuoteColumns._ID,
             QuoteColumns.SYMBOL,
@@ -103,7 +105,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                     @Override public void onItemClick(View v, int position) {
                         if (mCursor.moveToPosition(position)) {
                             Intent intent = new Intent(mContext, StockHistoryActivity.class);
-                            intent.putExtra("symbol", mCursor.getString(mCursor.getColumnIndex("symbol")));
+                            intent.putExtra(STOCK_SYMBOL, mCursor.getString(mCursor.getColumnIndex(STOCK_SYMBOL)));
                             startActivity(intent);
                         }
                     }
@@ -253,7 +255,7 @@ public class MyStocksActivity extends AppCompatActivity implements LoaderManager
                         } else {
                             // Add the stock to DB
                             mServiceIntent.putExtra("tag", "add");
-                            mServiceIntent.putExtra("symbol", input.toString());
+                            mServiceIntent.putExtra(STOCK_SYMBOL, input.toString());
                             startService(mServiceIntent);
                         }
                     }

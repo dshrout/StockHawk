@@ -23,6 +23,7 @@ import java.util.List;
  * Created by DShrout on 6/5/2016
  */
 public class WidgetViewsFactory implements RemoteViewsFactory {
+    private static final String STOCK_SYMBOL = "symbol";
     private static final int mCount = 10;
     private List<WidgetItem> mWidgetItems = new ArrayList<>();
     private Context mContext;
@@ -75,6 +76,12 @@ public class WidgetViewsFactory implements RemoteViewsFactory {
         views.setTextViewText(R.id.widget_change, Utils.showPercent ? widgetItem.percentChange : widgetItem.change);
         views.setInt(R.id.widget_change, "setBackgroundResource", color);
 
+        // fill in intent for list items
+        Intent fillInIntent = new Intent();
+        fillInIntent.putExtra(STOCK_SYMBOL, widgetItem.stockSymbol);
+        views.setOnClickFillInIntent(R.id.widget_stock_symbol, fillInIntent);
+        views.setOnClickFillInIntent(R.id.widget_bid_price, fillInIntent);
+        views.setOnClickFillInIntent(R.id.widget_change, fillInIntent);
 
         return views;
     }
