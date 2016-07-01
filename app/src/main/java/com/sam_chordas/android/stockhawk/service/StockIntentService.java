@@ -25,7 +25,7 @@ public class StockIntentService extends IntentService {
         StockTaskService stockTaskService = new StockTaskService(this);
         Bundle args = new Bundle();
         String tag = intent.getStringExtra("tag");
-        if (tag.equals("add") || tag.equals("history")){
+        if (tag.equals("add")){
             args.putString("symbol", intent.getStringExtra("symbol"));
         }
 
